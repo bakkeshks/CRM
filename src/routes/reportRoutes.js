@@ -10,5 +10,7 @@ router.get("/customers", reportController.getCustomerReport);
 
 // GET /reports/products
 router.get("/products", reportController.getProductReport);
+// GET /reports/getLast30DaysReport
+router.get("/getLast30DaysReport", reportController.getLast30DaysReport);
 
 module.exports = router;

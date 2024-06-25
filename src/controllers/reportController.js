@@ -83,3 +83,39 @@ exports.getProductReport = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Get the last 30 days' data report for products, customers, and sales
+exports.getLast30DaysReport = async (req, res) => {
+  try {
+    const today = new Date();
+    const pastDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 30
+    );
+
+    const [totalCustomers, totalProducts, totalSales, last30DaysSales] =
+      await Promise.all([
+        Customer.countDocuments({ createdAt: { $gte: pastDate } }),
+        Product.countDocuments({ createdAt: { $gte: pastDate } }),
+        Sale.countDocuments({ saleDate: { $gte: pastDate } }),
+        Sale.find({ saleDate: { $gte: pastDate } })
+          .select("totalAmount -_id")
+          .exec(),
+      ]);
+
+    const last30DaysRevenue = last30DaysSales.reduce(
+      (sum, sale) => sum + sale.totalAmount,
+      0
+    );
+
+    res.status(200).json({
+      totalCustomers,
+      totalProducts,
+      totalSales,
+      last30DaysRevenue,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

@@ -18,7 +18,6 @@ Nexus CRM is designed to manage customer relationships, sales processes, product
 - **Features:**
   - Add, edit, delete customer profiles
   - View customer details
-  - Search and filter customers
 - **API Endpoints:**
   - `POST /customers` - Create a new customer
   - `GET /customers` - Retrieve a list of customers
@@ -44,7 +43,6 @@ Nexus CRM is designed to manage customer relationships, sales processes, product
 - **Features:**
   - Create and manage quotes
   - Convert quotes to sales
-  - Link quotes to customers and products
 - **API Endpoints:**
   - `POST /quotes` - Create a new quote
   - `GET /quotes` - Retrieve a list of quotes
@@ -68,11 +66,14 @@ Nexus CRM is designed to manage customer relationships, sales processes, product
 ### 5. Reports Management
 
 - **Features:**
+
   - Retrive sales,customer and product information
+
 - **API Endpoints:**
-  - `GET reports/sales` - Generate a sales report with query parameter (optional) `startDate` and `endDate`
-  - `GET reports/customers` - Generate a customers report with query parameter (optional) `startDate` and `endDate`
-  - `GET reports/products` - Generate a products report
+  - `GET /reports/sales` - Generate a sales report with query parameter (optional) `startDate` and `endDate`
+  - `GET /reports/customers` - Generate a customers report with query parameter (optional) `startDate` and `endDate`
+  - `GET /reports/products` - Generate a products report
+  - `GET /reports/getLast30DaysReport` - Get the last 30 days data report for products, customers, and sales
 
 ## Model Flow:
 
@@ -116,3 +117,4 @@ The flow of each model in Nexus CRM involves CRUD (Create, Read, Update, Delete)
 - **Sales Report**: A GET request to `/reports/sales` generates a sales report. Optional query parameters startDate and endDate can be provided to filter sales data within a specific date range.
 - **Customer Report**: A GET request to `/reports/customers` generates a customer activity report. Optional query parameters startDate and endDate can be provided to filter customer data within a specific date range.
 - **Product Report**: A GET request to `/reports/products` generates a product inventory report, listing all products in the database.
+- **Last30daysSale Report**: A GET request to `/reports/getLast30DaysReport` generates a last 30 days report for last30days (customer,product,totalsales,revenue).
