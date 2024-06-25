@@ -67,6 +67,13 @@ Nexus CRM is designed to manage customer relationships, sales processes, product
 
 ### 5. Reports Management
 
+- **Features:**
+  - Retrive sales,customer and product information
+- **API Endpoints:**
+  - `GET reports/sales` - Generate a sales report with query parameter (optional) `startDate` and `endDate`
+  - `GET reports/customers` - Generate a customers report with query parameter (optional) `startDate` and `endDate`
+  - `GET reports/products` - Generate a products report
+
 ## Model Flow:
 
 The flow of each model in Nexus CRM involves CRUD (Create, Read, Update, Delete) operations managed through API endpoints. Here's how each model functions in detail:
