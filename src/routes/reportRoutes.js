@@ -1,0 +1,14 @@
+const express = require("express");
+const router = express.Router();
+const reportController = require("../controllers/reportController");
+
+// GET /reports/sales
+router.get("/sales", reportController.getSalesReport);
+
+// GET /reports/customers
+router.get("/customers", reportController.getCustomerReport);
+
+// GET /reports/products
+router.get("/products", reportController.getProductReport);
+
+module.exports = router;

@@ -6,6 +6,7 @@ const customerRoutes = require("./src/routes/customerRoutes");
 const productRoutes = require("./src/routes/productRoutes");
 const salesRoutes = require("./src/routes/saleRoutes");
 const quoteRoutes = require("./src/routes/quoteRoutes");
+const reportRoutes = require("./src/routes/reportRoutes");
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -23,6 +24,7 @@ app.use("/", customerRoutes); // customer routes
 app.use("/", productRoutes); // product routes
 app.use("/", salesRoutes); // sales routes
 app.use("/", quoteRoutes); // quote routes
+app.use("/reports", reportRoutes); // report routes
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
