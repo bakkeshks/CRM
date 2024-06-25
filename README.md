@@ -104,4 +104,8 @@ The flow of each model in Nexus CRM involves CRUD (Create, Read, Update, Delete)
 - **View Product Details**: A GET request to `/products/:id` retrieves a single product's details.
 - **List Products**: A GET request to `/products` retrieves a list of all products, with optional search and filter functionality.
 
-### Reports Management
+### 5. Reports Management
+
+- **Sales Report**: A GET request to /reports/sales generates a sales report. Optional query parameters startDate and endDate can be provided to filter sales data within a specific date range.
+- **Customer Report**: A GET request to /reports/customers generates a customer activity report. Optional query parameters startDate and endDate can be provided to filter customer data within a specific date range.
+- **Product Report**: A GET request to /reports/products generates a product inventory report, listing all products in the database.
