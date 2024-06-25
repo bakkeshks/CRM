@@ -7,11 +7,7 @@ exports.createSale = async (req, res) => {
   try {
     // Validate input data (you should have validation logic here)
 
-    // Create a new sale record
-    const sale = new Sale({ customerId, productId, quantity, totalAmount });
-    await sale.save();
-
-    // Update the stock of the product
+    // Find the product to check stock availability
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).send({ message: "Product not found" });
@@ -22,9 +18,21 @@ exports.createSale = async (req, res) => {
       return res.status(400).send({ message: "Insufficient stock available" });
     }
 
+    // Create a new sale record
+    const sale = new Sale({
+      customerId,
+      productId,
+      quantity,
+      totalAmount,
+      status: "completed",
+    });
+
     // Deduct the quantity sold from the product stock
     product.stock -= quantity;
     await product.save();
+
+    // Save the sale
+    await sale.save();
 
     // Respond with the created sale object
     res.status(201).send(sale);
