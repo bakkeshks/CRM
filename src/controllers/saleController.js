@@ -1,14 +1,37 @@
 const Sale = require("../models/salesModel");
+const Product = require("../models/productModel");
 
 exports.createSale = async (req, res) => {
   const { customerId, productId, quantity, totalAmount } = req.body;
 
   try {
+    // Validate input data (you should have validation logic here)
+
+    // Create a new sale record
     const sale = new Sale({ customerId, productId, quantity, totalAmount });
     await sale.save();
+
+    // Update the stock of the product
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).send({ message: "Product not found" });
+    }
+
+    // Check if sufficient stock is available
+    if (product.stock < quantity) {
+      return res.status(400).send({ message: "Insufficient stock available" });
+    }
+
+    // Deduct the quantity sold from the product stock
+    product.stock -= quantity;
+    await product.save();
+
+    // Respond with the created sale object
     res.status(201).send(sale);
   } catch (error) {
-    res.status(400).send(error);
+    // Handle errors
+    console.error("Error creating sale:", error);
+    res.status(500).send({ message: "Error creating sale" });
   }
 };
 
